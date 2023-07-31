@@ -1,22 +1,12 @@
 from tkinter import *
+import random
 
-'''
-Create a window try and draw an array of rectangles of various size right next to each other
-- start putting them highest to lowest
-- after this randomize their postiions
-
-Num rectangles used global namepsace NUMBARS = 50 used to loop through and draw?
-
-
-'''
 
 window = Tk()
-window.title("Sorting Algorithm Visualizer")
 window.resizable(False,False)
+canvas = Canvas(window)
 
-NUM_BARS = 50
 WIDTH = 700
-
 
 ui_frame = Frame(window, width=250, height=600, bg = 'red')
 ui_frame.grid(row=0, column=0, padx=10, pady=10)
@@ -25,67 +15,95 @@ ui_frame.grid(row=0, column=0, padx=10, pady=10)
 canvas = Canvas(window, width=610, height=600)
 canvas.grid(row=0, column=1)
 
+#contains 50 bars
 bars = []
 
-#Code to draw rectangle across screen
-#now we need to adjust their heights
-#randomize their postions
-#for x in range(0, WIDTH, 14):
-#    canvas.create_rectangle(x, 600, x+10, x, fill='black')
+def draw_bars():
+    for x in range(0, WIDTH, 14):
+        random_y = random.randint(1,590)
+        bar = canvas.create_rectangle(x, 600, x+10, random_y, fill='black')
+        bars.append(bar)
 
-#every rect is 10 x 600 - 
-
-#for x in range(0, WIDTH, 14):
-   #canvas.create_rectangle(x, 600, x+10, x, fill='black')
-   #print(x, 600, x+10, x)
+#make a main function put it in there
+draw_bars()
 
 
 
 '''
-What does Bar class need?
-needs an x coord
-needs a y coords
-needs a width
-needs to now its left and right neighbor and the height of ots left and right neighbor
+to randoize bars
+loop through every bar
+canvas.itemconfig(bars[i])
+
+set new random coords
+has to be 
+canvas.coords(bar[i],rand,600,rand,rand)
+
+#set new coords
+def width(e):
+    x0, y0, x1, y1 = canvas.coords(rectangle) # get the coords of rect
+    y1 = 3 * float(e)                         # calc new coords
+    canvas.coords(rectangle, x0, y0, x1, y1)  # set new coords
 
 '''
 
-class Bar:
-    def __init__(self, x0, y0, x1, y1, color) -> None:
-        canvas.create_rectangle(x0, y0, x1, y1, fill=color)
-        self.x0 = x0
-        self.y0 = y0
-        self.x1 = x1
-        self.y1 = y1
-
-        self.color = color
-
-        #Calculate the height of each bar, use it to compare against other bars
-        self.height = y0 - y1
-
-        #Each bar needs to know its left and right neighbor, to compare heights
-        self.left_neighbor = None
-        self.right_neighbor = None
+#bars[i-1] is first bar in array, they return ints
+#get the position of every bar
+#take that bar then randomize the position
 
 
-#Next randomize positions
-def draw_bars(x0, y0, x1, y1, color):
-        bar = Bar(x0,y0,x1,y1,color)
+def reset():
+    #Clear screen
+    canvas.delete('all')
+
+    #Redraw bars
+    for x in range(0, WIDTH, 14):
+        random_y = random.randint(1,590)
+        bar = canvas.create_rectangle(x, 600, x+10, random_y, fill='black')
         bars.append(bar)
 
 
-#draw and arrange bars bars
-for x in range(0, WIDTH, 14):
-    draw_bars(x, 600, x+10, x, 'black')
+
+
+#Draw bars -- check
+#be able to aceess singular bars -- check
+#randomize the positions of each bar
+
+#*************************************************************
+
+#allows me to acess and configure any rectangle in the array
+canvas.itemconfig(bars[10], fill='green')
+
+#allows me to get the coords of each rectangle in the array
+#I THINK in the order x0,y0,x1,y1
+#So if I want height of rect
+# y1 - y0
+#not sure how this is unpacking?
+#might not matter 
+
+#unpacked like x0, y1, x1,y0
+x0,y1,x1,y0 = canvas.coords(bars[10])
+#print(x0,y0,x1,y1)
+#print(abs(y1-y0))
+
+#unpacked like x0, y1, x1,y0
+x0,y1,x1,y0 = canvas.coords(bars[11])
+#print(x0,y0,x1,y1)
+#print(abs(y1-y0))
+
+'''
+FRAMES for buttons
+top_frame = Frame(ui_frame, width=200,height=200, bg='blue').grid(row=0,column=0)
+mid_frame = Frame(ui_frame, width=200,height=200, bg='yellow').grid(row=1,column=0)
+low_frame = Frame(ui_frame, width=200,height=200, bg='red').grid(row=2,column=0)
+'''
+
+reset_button = Button(ui_frame, width=15,height=2, text='Reset', command=reset).grid(row=0,column=0)
 
 
 
-
-
-print(bars[0].color, bars[3].height)
-
-
-
+#generate random num for 0-100 in steps of 10
+x = random.randrange(0,100,10)
+print(x)
 
 
 
