@@ -6,28 +6,23 @@ import time
 '''
 TO DO
 
-Make algo only run after drop down and start
-change function to bubble sort
-fix ui bar
-add speed dropdown?
-
-
-To set speed add variable back to lambda, add arg back to function, create tk combobox, speed options, 
+Fix the look of the UI Bar
+Thouroughly examine all the code
 
 '''
 
 
 window = Tk()
-window.resizable(True,False)
+window.resizable(False,False)
 canvas = Canvas(window)
 
 WIDTH = 700
 
 ui_frame = Frame(window, width=250, height=600, bg = 'red')
-ui_frame.grid(row=0, column=0, padx=10, pady=10)
+ui_frame.grid(row=0, column=0, padx=0, pady=10)
 
 canvas = Canvas(window, width=700, height=600, bg='black')
-canvas.grid(row=0, column=1)
+canvas.grid(row=0, column=1, padx=0, pady=5)
 
 bars = []
 
@@ -55,6 +50,7 @@ def start_algo(bars ,speed):
     if algo_val_string.get() == 'Bubble Sort':
 
         reset_button.config(state=DISABLED)
+        start_button.config(state=DISABLED)
 
         for i in range(len(bars)-1, -1, -1):
             for j in range(0, i):
@@ -65,6 +61,7 @@ def start_algo(bars ,speed):
                     bars[j+1], bars[j] = bars[j], bars[j+1]
             
             window.update()
+                #Maybe Create function for speed? where is just call it with the speed
             if speed_value_string.get() == 'Fast':
                 time.sleep(.01)
             elif speed_value_string.get() == 'Medium':
@@ -78,6 +75,8 @@ def start_algo(bars ,speed):
             time.sleep(.01)  
         
             reset_button.config(state=NORMAL)
+    
+    start_button.config(state=DISABLED)
     
     '''
     for i in range(len(bars)-1, -1, -1):
@@ -105,30 +104,42 @@ def start_algo(bars ,speed):
 def reset():
     canvas.delete('all')
     bars.clear()
+    start_button.config(state=NORMAL)
     draw_bars()
 
 
 
+
+
+
+Label(ui_frame,text='Choose Algorithm', height=0, bg='red').grid(row=0,column=0)
 algo_values = ['Bubble Sort', 'MergeSort']
 algo_val_string = StringVar()
-algo_options = ttk.Combobox(ui_frame,values=algo_values, textvariable=algo_val_string)
-algo_options.grid(row=0,column=0)
+algo_options = ttk.Combobox(ui_frame,values=algo_values, textvariable=algo_val_string, height=100)
+algo_options.grid(row=1,column=0, pady=(10,5))
 
 algo_options.current(0)
 
+Label(ui_frame,text='Choose Speed', height=0, bg='red').grid(row=2,column=0)
 speed_values = ['Fast', 'Medium', 'Slow']
 speed_value_string = StringVar()
 speed_options = ttk.Combobox(ui_frame, values=speed_values, textvariable=speed_value_string)
-speed_options.grid(row=0,column=1)
+speed_options.grid(row=3,column=0, padx=5, pady=(10,5))
 
 speed_options.current(1)
+##################################################################################################
 
+
+
+###################################################################################################
 draw_bars() 
 
 start_button = Button(ui_frame, width=15,height=2, text='Start', command= lambda a=bars:start_algo(a ,speed_value_string))
-start_button.grid(row=1,column=0)
+start_button.grid(row=4,column=0, padx=5, pady=(30,10))
 reset_button = Button(ui_frame, width=15,height=2, text='Reset', command=reset)
-reset_button.grid(row=2,column=0)
+reset_button.grid(row=5,column=0, padx=5, pady=(30, 10))
+
+
 
 
 
