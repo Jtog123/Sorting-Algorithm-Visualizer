@@ -18,11 +18,11 @@ canvas = Canvas(window)
 
 WIDTH = 700
 
-ui_frame = Frame(window, width=250, height=600, bg = 'red')
-ui_frame.grid(row=0, column=0, padx=0, pady=10)
+ui_frame = Frame(window, width=250, height=600, bg = '#2E0014', highlightbackground='#2E0014',highlightthickness=3)#DB5461
+ui_frame.grid(row=0, column=0, padx=0, pady=0, sticky='ns')
 
-canvas = Canvas(window, width=700, height=600, bg='black')
-canvas.grid(row=0, column=1, padx=0, pady=5)
+canvas = Canvas(window, width=700, height=600, bg='black', highlightbackground='black', highlightthickness=0)
+canvas.grid(row=0, column=1, padx=0, pady=0)
 
 bars = []
 
@@ -70,7 +70,7 @@ def start_algo(bars ,speed):
                 time.sleep(.3)
         
         for k in range(0, len(bars)):
-            canvas.itemconfig(bars[k], fill='green') 
+            canvas.itemconfig(bars[k], fill='#00E5E8') 
             window.update()
             time.sleep(.01)  
         
@@ -110,21 +110,21 @@ def reset():
 
 
 
+Label(ui_frame, height=7, width=20, bg='#2E0014').grid(row=0,column=0, pady=10) #GHOST LABEL TO CREATE SPACING
 
-
-Label(ui_frame,text='Choose Algorithm', height=0, bg='red').grid(row=0,column=0)
+Label(ui_frame,text='Choose Algorithm', height=0, bg='#2E0014', foreground='white').grid(row=1,column=0, pady=10)
 algo_values = ['Bubble Sort', 'MergeSort']
 algo_val_string = StringVar()
 algo_options = ttk.Combobox(ui_frame,values=algo_values, textvariable=algo_val_string, height=100)
-algo_options.grid(row=1,column=0, pady=(10,5))
+algo_options.grid(row=2,column=0, pady=(10,10))
 
 algo_options.current(0)
 
-Label(ui_frame,text='Choose Speed', height=0, bg='red').grid(row=2,column=0)
+Label(ui_frame,text='Choose Speed', height=0, bg='#2E0014', foreground='white').grid(row=3,column=0, pady=10)
 speed_values = ['Fast', 'Medium', 'Slow']
 speed_value_string = StringVar()
 speed_options = ttk.Combobox(ui_frame, values=speed_values, textvariable=speed_value_string)
-speed_options.grid(row=3,column=0, padx=5, pady=(10,5))
+speed_options.grid(row=4,column=0, padx=5, pady=(10,10))
 
 speed_options.current(1)
 ##################################################################################################
@@ -135,9 +135,9 @@ speed_options.current(1)
 draw_bars() 
 
 start_button = Button(ui_frame, width=15,height=2, text='Start', command= lambda a=bars:start_algo(a ,speed_value_string))
-start_button.grid(row=4,column=0, padx=5, pady=(30,10))
+start_button.grid(row=5,column=0, padx=5, pady=(30,10))
 reset_button = Button(ui_frame, width=15,height=2, text='Reset', command=reset)
-reset_button.grid(row=5,column=0, padx=5, pady=(30, 10))
+reset_button.grid(row=6,column=0, padx=5, pady=(30, 10))
 
 
 
