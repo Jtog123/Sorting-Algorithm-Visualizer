@@ -5,10 +5,7 @@ import time
 
 '''
 TO DO
-
-Fix the look of the UI Bar
-Thouroughly examine all the code
-
+Add other Algos
 '''
 
 
@@ -30,8 +27,6 @@ def draw_bars():
     
     for x in range(0, WIDTH, 14):
         random_y = random.randint(1,590)
-        #or x ,600, x+10 ,random_y, fill='black'  or  x, random_y, x+10, 600, fill='black'
-        #maybe no fill looks kind of cool
         bar = canvas.create_rectangle(x ,600, x+10 ,random_y , outline='white')
         bars.append(bar)
 
@@ -42,7 +37,6 @@ def swap_bars(bar_0, bar_1):
 
     canvas.move(bar_0, x10-x00,0)
     canvas.move(bar_1,x01-x11,0)
-
 
 
 def start_algo(bars ,speed):
@@ -78,36 +72,12 @@ def start_algo(bars ,speed):
     
     start_button.config(state=DISABLED)
     
-    '''
-    for i in range(len(bars)-1, -1, -1):
-        for j in range(0, i):
-            _, y1_low ,_ ,_ = canvas.coords(bars[j+1])
-            _, y1_curr, _ , _ = canvas.coords(bars[j])
-            if y1_curr < y1_low and i > j:
-                swap_bars(bars[j],bars[j+1])
-                bars[j+1], bars[j] = bars[j], bars[j+1]
-        
-        window.update()
-        time.sleep(.07)
-    
-    for k in range(0, len(bars)):
-        canvas.itemconfig(bars[k], fill='green') 
-        window.update()
-        time.sleep(.01)  
-    
-        reset_button.config(state=NORMAL)
-    
-
-    '''
-
 
 def reset():
     canvas.delete('all')
     bars.clear()
     start_button.config(state=NORMAL)
     draw_bars()
-
-
 
 
 Label(ui_frame, height=7, width=20, bg='#2E0014').grid(row=0,column=0, pady=10) #GHOST LABEL TO CREATE SPACING
@@ -127,20 +97,13 @@ speed_options = ttk.Combobox(ui_frame, values=speed_values, textvariable=speed_v
 speed_options.grid(row=4,column=0, padx=5, pady=(10,10))
 
 speed_options.current(1)
-##################################################################################################
 
-
-
-###################################################################################################
 draw_bars() 
 
 start_button = Button(ui_frame, width=15,height=2, text='Start', command= lambda a=bars:start_algo(a ,speed_value_string))
 start_button.grid(row=5,column=0, padx=5, pady=(30,10))
 reset_button = Button(ui_frame, width=15,height=2, text='Reset', command=reset)
 reset_button.grid(row=6,column=0, padx=5, pady=(30, 10))
-
-
-
 
 
 window.mainloop()
