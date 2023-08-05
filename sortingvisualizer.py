@@ -84,10 +84,11 @@ def reset():
     draw_bars()
 
 
-Label(ui_frame, height=7, width=20, bg='#2E0014').grid(row=0,column=0, pady=10) #GHOST LABEL TO CREATE SPACING
+#Ghost label to create spacing
+Label(ui_frame, height=7, width=20, bg='#2E0014').grid(row=0,column=0, pady=10)
 
 Label(ui_frame,text='Choose Algorithm', height=0, bg='#2E0014', foreground='white').grid(row=1,column=0, pady=10)
-algo_values = ['Bubble Sort', 'MergeSort']
+algo_values = ['Bubble Sort', 'To be added']
 algo_val_string = StringVar()
 algo_options = ttk.Combobox(ui_frame,values=algo_values, textvariable=algo_val_string, height=100)
 algo_options.grid(row=2,column=0, pady=(10,10))
