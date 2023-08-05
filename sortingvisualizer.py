@@ -38,6 +38,15 @@ def swap_bars(bar_0, bar_1):
     canvas.move(bar_0, x10-x00,0)
     canvas.move(bar_1,x01-x11,0)
 
+def set_speed(speed):
+    speed = speed_value_string.get()
+
+    if speed == 'Fast':
+        time.sleep(.01)
+    elif speed == 'Medium':
+        time.sleep(.1)
+    elif speed == 'Slow':
+        time.sleep(.3)
 
 def start_algo(bars ,speed):
 
@@ -55,13 +64,8 @@ def start_algo(bars ,speed):
                     bars[j+1], bars[j] = bars[j], bars[j+1]
             
             window.update()
-                #Maybe Create function for speed? where is just call it with the speed
-            if speed_value_string.get() == 'Fast':
-                time.sleep(.01)
-            elif speed_value_string.get() == 'Medium':
-                time.sleep(.1)
-            elif speed_value_string.get() == 'Slow':
-                time.sleep(.3)
+            set_speed(speed)
+
         
         for k in range(0, len(bars)):
             canvas.itemconfig(bars[k], fill='#00E5E8') 
